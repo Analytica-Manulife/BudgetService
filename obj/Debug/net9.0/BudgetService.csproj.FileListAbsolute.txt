@@ -82,3 +82,4 @@
 /Users/yashmehta/AnalyticaManulife/BudgetService/BudgetService/obj/Debug/net9.0/BudgetService.pdb
 /Users/yashmehta/AnalyticaManulife/BudgetService/BudgetService/obj/Debug/net9.0/BudgetService.genruntimeconfig.cache
 /Users/yashmehta/AnalyticaManulife/BudgetService/BudgetService/obj/Debug/net9.0/ref/BudgetService.dll
+/Users/yashmehta/AnalyticaManulife/BudgetService/BudgetService/obj/Debug/net9.0/BudgetService.sourcelink.json

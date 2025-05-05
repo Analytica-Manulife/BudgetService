@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
     {
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Budget> Budgets   { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         private readonly IConfiguration _configuration;
         private readonly ILogger<AppDbContext> _logger;
@@ -65,6 +66,11 @@ using Microsoft.Extensions.Logging;
                 .HasOne(b => b.Account)
                 .WithMany(a => a.Budgets)
                 .HasForeignKey(b => b.AccountId);
+        
+            modelBuilder.Entity<Transaction>()
+                .HasOne<Account>()
+                .WithMany()
+                .HasForeignKey(t => t.AccountId);
 
             base.OnModelCreating(modelBuilder);
         }

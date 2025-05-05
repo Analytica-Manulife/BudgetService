@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("budget/[controller]")]
     public class BudgetController : ControllerBase
     {
         private readonly BudgetService _budgetService;

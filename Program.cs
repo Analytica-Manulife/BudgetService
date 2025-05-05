@@ -41,6 +41,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IBudgetGateway, BudgetGateway>();
 builder.Services.AddScoped<IAccountGateway, AccountGateway>();
 builder.Services.AddScoped<BudgetService.Services.BudgetService>();
+builder.Services.AddScoped<ITransactionGateway, TransactionGateway>();
+builder.Services.AddScoped<TransactionService>();
 
 var app = builder.Build();
 

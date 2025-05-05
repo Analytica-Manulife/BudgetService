@@ -56,7 +56,6 @@ public class Budget
     [Column("updated_at", TypeName = "datetime2")]
     public DateTime? UpdatedAt { get; set; }
 
-    [ForeignKey("AccountId")]
     [NotMapped]
-    public Account Account { get; set; }
+    public Account? Account { get; set; }
 }

@@ -26,7 +26,9 @@ using Microsoft.EntityFrameworkCore;
         }
 
         public async Task CreateBudgetAsync(Budget budget)
-        {
+        {   
+            var account = await _context.Accounts.FindAsync(budget.AccountId);
+            budget.Account = account;
             _context.Budgets.Add(budget);
             await _context.SaveChangesAsync();
         }
