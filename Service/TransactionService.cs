@@ -65,4 +65,9 @@ public class TransactionService
         await _transactionGateway.AddTransactionAsync(transaction);
         return true;
     }
+    public async Task<List<Transaction>> GetTransactionsByAccountIdAsync(Guid accountId)
+    {
+        return await _transactionGateway.GetTransactionsByAccountIdAsync(accountId);
+    }
+    
 }

@@ -33,4 +33,25 @@ public class TransactionController : ControllerBase
             return BadRequest(new { message = ex.Message });
         }
     }
+    
+    [HttpGet("{accountId}")]
+    public async Task<IActionResult> GetTransactionsByAccountId(Guid accountId)
+    {
+        try
+        {
+            var transactions = await _transactionService.GetTransactionsByAccountIdAsync(accountId);
+            if (transactions == null || !transactions.Any())
+            {
+                return NotFound(new { message = "No transactions found for this account." });
+            }
+
+            return Ok(transactions);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving transactions.");
+            return StatusCode(500, new { message = ex.Message });
+        }
+    }
+
 }
