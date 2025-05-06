@@ -39,4 +39,13 @@ using Microsoft.EntityFrameworkCore;
             _context.Budgets.Update(budget);
             await _context.SaveChangesAsync();
         }
+        
+        public async Task<Budget?> GetBudgetByAccountIdAsync(Guid accountId)
+        {
+            return await _context.Budgets
+                .Where(b => b.AccountId == accountId)
+                .OrderByDescending(b => b.CreatedAt)
+                .FirstOrDefaultAsync();
+        }
+
     }

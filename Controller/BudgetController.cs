@@ -27,7 +27,24 @@ using Microsoft.Extensions.Logging;
             var (isRequired, currentBudget) = await _budgetService.CheckIfBudgetRequiredAsync(accountId);
             return Ok(new { isRequired, currentBudget });
         }
-
+        
+        [HttpGet("status")]
+        public IActionResult GetServiceStatus()
+        {
+            return Ok(new { status = "BudgetService is running", timestamp = DateTime.UtcNow });
+        }
+    
+        [HttpGet("{accountId}")]
+        public async Task<IActionResult> GetBudgetByAccountId(Guid accountId)
+        {
+            var budget = await _budgetService.GetBudgetByAccountIdAsync(accountId);
+            if (budget == null)
+            {
+                return NotFound(new { message = "No budget found for this account." });
+            }
+            return Ok(budget);
+        }
+        
         [HttpPost("{accountId}/generate")]
         public IActionResult GenerateBudget(Guid accountId, [FromBody] BudgetRequest request)
         {

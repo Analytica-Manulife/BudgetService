@@ -68,7 +68,12 @@ public async Task CreateOrUpdateBudgetAsync(Budget budgetInput)
     budgetInput.UpdatedAt = null;
 
     await _budgetGateway.CreateBudgetAsync(budgetInput);
+}   
+public async Task<Budget?> GetBudgetByAccountIdAsync(Guid accountId)
+{
+    return await _budgetGateway.GetBudgetByAccountIdAsync(accountId);
 }
+
 
     }
 }
