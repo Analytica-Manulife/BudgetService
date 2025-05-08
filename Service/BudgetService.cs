@@ -60,15 +60,39 @@ public async Task CreateOrUpdateBudgetAsync(Budget budgetInput)
     var now = DateTime.UtcNow.Date;
     var endOfMonth = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month));
 
-    // Overwrite values from input with system-generated values
-    budgetInput.BudgetId = Guid.NewGuid(); // Generate new ID always
-    budgetInput.PeriodStart = now;
-    budgetInput.PeriodEnd = endOfMonth;
-    budgetInput.CreatedAt = DateTime.UtcNow;
-    budgetInput.UpdatedAt = null;
+    var existingBudget = await _budgetGateway.GetActiveBudgetAsync(budgetInput.AccountId);
 
-    await _budgetGateway.CreateBudgetAsync(budgetInput);
-}   
+    if (existingBudget != null)
+    {
+        // Update existing budget
+        existingBudget.EntertainmentBudget = budgetInput.EntertainmentBudget;
+        existingBudget.EducationBudget = budgetInput.EducationBudget;
+        existingBudget.InvestmentBudget = budgetInput.InvestmentBudget;
+        existingBudget.DailyNeedsBudget = budgetInput.DailyNeedsBudget;
+        existingBudget.HousingBudget = budgetInput.HousingBudget;
+        existingBudget.UtilitiesBudget = budgetInput.UtilitiesBudget;
+        existingBudget.TransportationBudget = budgetInput.TransportationBudget;
+        existingBudget.HealthcareBudget = budgetInput.HealthcareBudget;
+        existingBudget.SavingsGoal = budgetInput.SavingsGoal;
+        existingBudget.TravelBudget = budgetInput.TravelBudget;
+
+        existingBudget.UpdatedAt = DateTime.UtcNow;
+
+        await _budgetGateway.UpdateBudgetAsync(existingBudget);
+    }
+    else
+    {
+        // Create new budget
+        budgetInput.BudgetId = Guid.NewGuid();
+        budgetInput.PeriodStart = now;
+        budgetInput.PeriodEnd = endOfMonth;
+        budgetInput.CreatedAt = DateTime.UtcNow;
+        budgetInput.UpdatedAt = null;
+
+        await _budgetGateway.CreateBudgetAsync(budgetInput);
+    }
+}
+
 public async Task<Budget?> GetBudgetByAccountIdAsync(Guid accountId)
 {
     return await _budgetGateway.GetBudgetByAccountIdAsync(accountId);
