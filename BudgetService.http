@@ -1,4 +1,4 @@
-@BudgetService_HostAddress = http://localhost:8080
+@BudgetService_HostAddress = http://localhost:8081
 
 GET {{BudgetService_HostAddress}}/weatherforecast/
 Accept: application/json
